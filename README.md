@@ -22,9 +22,7 @@ The laptop measurements were made using NetSpot Unlimited Enterprise, which enab
 <div align="center">Figure 1 - NetSpot raw data</div>
 
 <div align="justify">
-For the smartphone measurements, three apps were used to measure the signal strength: WiFiman, WiFi Monitor, G-MoN. All the measurements were carried out with WiFiman, the other two were used to verify the accuracy of the results. None of these apps allowed the export of data that could be used further, so all measurements for the smartphone were done manually, every five seconds one value was written down in a CSV file in Excel, for the course of 15 minutes. Each measurement point has a separate file corresponding to the device on which it was measured.
-
-After all the measurements were made, the floorplan (figure 4) was sketched using Paint in order to visualize the signal level in various points. The black lines mark the walls of the house, except for the discontinued lines, which mark the arbitrary outside area which was used for data extraction. The green dot represents the position of the router, the red dots represent all the measurement points, and the blue dot will act as a button in the MATLAB simulation.
+For the smartphone measurements, three apps were used to measure the signal strength: WiFiman, WiFi Monitor, G-MoN. All the measurements were carried out with WiFiman, the other two were used to verify the accuracy of the results. None of these apps allowed the export of data that could be used further, so all measurements for the smartphone were done manually, every five seconds one value was written down in a CSV file in Excel, for the course of 15 minutes. Each measurement point has a separate file corresponding to the device on which it was measured. After all the measurements were made, the floorplan was sketched using Paint in order to visualize the signal level in various points. The black lines mark the walls of the house, except for the discontinued lines, which mark the arbitrary outside area which was used for data extraction. The green dot represents the position of the router, the red dots represent all the measurement points, and the blue dot will act as a button in the MATLAB simulation.
 </div>
   
 <p align="center">
@@ -32,9 +30,25 @@ After all the measurements were made, the floorplan (figure 4) was sketched usin
 </p>
 <div align="center">Figure 2 - The floorplan</div>
 
-<p align="center">
-<img src="https://user-images.githubusercontent.com/49693776/120906294-e240f500-c660-11eb-81c8-629226dbf715.png" width="450" height="450">
-</p>    
-<div align="justify>
+<div align="justify">
 The MATLAB simulation will allow the user to display the RSSI as a function of time in any of the marked points or the heatmap for that device. The CSV files are read individually, and for each point there is a plot ready to be shown, if the user selects that point by clicking on it. At the start of the simulation, the user is prompted to select all the points on the floorplan he/she wishes to display and then press “Enter” to view them. An important note is that the floorplan will appear twice, the first time for the laptop measurements, and the second time for the smartphone measurements. If the user wishes to view the heatmap for that device, the blue dot from the legend must be selected. If an unmarked location is selected, the simulation will display a graph with all the plots overlapped, for that device.
+</div>
+
+<p align="center">
+<img src="https://user-images.githubusercontent.com/49693776/120906639-cbe86880-c663-11eb-96a8-542ce2c1eee6.png" width="450" height="450">
+</p>
+<div align="center">Figure 3 - Regular plot</div>
+
+<p align="center">
+<img src="https://user-images.githubusercontent.com/49693776/120906686-2aade200-c664-11eb-9f6c-c69cd912e607.png" width="600" height="450">
+</p>
+<div align="center">Figure 4 - Heatmap</div>
+
+<p align="center">
+<img src="https://user-images.githubusercontent.com/49693776/120906744-af006500-c664-11eb-81cd-d64fd651f5df.png" width="450" height="450">
+</p>
+<div align="center">Figure 5 - All plots</div>
+
+<div align="justify">
+In the code, after each file is read (each file represents a measurement point), each column is read in an array, which will be used for the RSSI-time plots. The average is also computed, which will be used for the heatmap. The floorplan is displayed, and using the “getpts” function the user may select the desired points by clicking on them. For each selected point, their [X,Y] coordinate pair is stored in an array, and then, using a loop, each pair is compared to relative positions of measurement points, and if there is a specific plot corresponding to that [X,Y] pair on the floorplan, that plot will be displayed. To create the heatmap, the “scatteredInterpolant” function was used, which correlated the average values in each point with the [X,Y] pairs of each point, and then an overlay was created to be displayed on top of the floorplan. To create the overlay, two “for” loops were used, to each point of the floorplan there was mapped an average value of the measurement points. Note that the bottom left side is irrelevant, because there is no actual measurement there, it was left because cutting it would modify the [X,Y] pairs. The code works the same way for both the laptop and the smartphone, but with different files and different variable names. One important aspect regarding the functionality is that after selecting the desired points and pressing “Enter”, the user cannot reselect other points for that device to be displayed, the simulation would have to be restarted.
 </div>
